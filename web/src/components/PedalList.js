@@ -1,4 +1,4 @@
-// src/components/PedalList.js
+
 import React, { useState, useEffect } from 'react';
 import CategoryCarousel from './CategoryCarousel';
 
@@ -7,7 +7,7 @@ function PedalList() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  // Fetch all pedals from the API
+ 
   const fetchPedals = async () => {
     try {
       const response = await fetch('http://localhost:3001/api/pedals');
@@ -18,7 +18,7 @@ function PedalList() {
     }
   };
 
-  // Fetch all categories from the API
+  
   const fetchCategories = async () => {
     try {
       const response = await fetch('http://localhost:3001/api/categories');
@@ -35,7 +35,7 @@ function PedalList() {
     fetchPedals();
   }, []);
 
-  // If a category is selected from the dropdown, filter to that category only; otherwise, show all
+  
   const filteredCategories = selectedCategory
     ? categories.filter((cat) => String(cat.id) === selectedCategory)
     : categories;
@@ -43,7 +43,7 @@ function PedalList() {
   return (
     <div>
       <h2>Guitar Pedals Collection</h2>
-      {/* Dropdown Filter */}
+      
       <div className="filter">
         <label htmlFor="categoryFilter">Filter by Category:</label>
         <select
@@ -59,7 +59,7 @@ function PedalList() {
           ))}
         </select>
       </div>
-      {/* Display a carousel for each filtered category */}
+    
       {filteredCategories.map((category) => {
         const filteredPedals = pedals.filter(
           (pedal) => pedal.category_id === category.id

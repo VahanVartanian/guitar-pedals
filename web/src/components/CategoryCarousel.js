@@ -16,7 +16,6 @@ const CategoryCarousel = ({ category, pedals }) => {
     const threshold = 100; // pixels from the edge to trigger scrolling
 
     if (mouseX - rect.left < threshold) {
-      // Near left edge: scroll left
       if (!scrollInterval) {
         const interval = setInterval(() => {
           container.scrollBy({ left: -15, behavior: 'smooth' });
@@ -24,7 +23,6 @@ const CategoryCarousel = ({ category, pedals }) => {
         setScrollInterval(interval);
       }
     } else if (rect.right - mouseX < threshold) {
-      // Near right edge: scroll right
       if (!scrollInterval) {
         const interval = setInterval(() => {
           container.scrollBy({ left: 15, behavior: 'smooth' });
@@ -69,6 +67,7 @@ const CategoryCarousel = ({ category, pedals }) => {
         onMouseLeave={handleMouseLeave}
       >
         {pedals.map((pedal) => (
+          // Wrap the entire card in a Link
           <Tilt
             key={pedal.id}
             tiltMaxAngleX={10}
@@ -78,22 +77,22 @@ const CategoryCarousel = ({ category, pedals }) => {
             scale={1.05}
             transitionSpeed={250}
           >
-            <div className="card">
-              <Link to={`/pedals/${pedal.id}`}>
+            <Link to={`/pedals/${pedal.id}`} className="card-link">
+              <div className="card">
                 <h4>{pedal.name}</h4>
-              </Link>
-              {pedal.image && (
-                <img
-                  src={`http://localhost:3001/uploads/${pedal.image}`}
-                  alt={pedal.name}
-                />
-              )}
-              <p>{pedal.description.substring(0, 100)}...</p>
-            </div>
+                {pedal.image && (
+                  <img
+                    src={`http://localhost:3001/uploads/${pedal.image}`}
+                    alt={pedal.name}
+                  />
+                )}
+                <p>{pedal.description.substring(0, 100)}...</p>
+              </div>
+            </Link>
           </Tilt>
         ))}
       </div>
-      {/* Navigation buttons for accessibility */}
+      
       <div className="carousel-controls">
         <button className="carousel-button" onClick={scrollLeft}>‹</button>
         <button className="carousel-button" onClick={scrollRight}>›</button>

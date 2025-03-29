@@ -1,3 +1,4 @@
+// src/components/PedalDetail.js
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
@@ -48,10 +49,12 @@ function PedalDetail() {
       <p>{pedal.description}</p>
       <p>Price: ${pedal.price}</p>
       <p>Category: {pedal.category_id}</p>
-      <div>
-        <button onClick={deletePedal}>Delete Pedal</button>
+      <div className="pedal-detail-buttons">
+        <button className="pedal-detail-button btn-delete" onClick={deletePedal}>
+          Delete Pedal
+        </button>
         <Link to={`/edit/${pedal.id}`}>
-          <button>Edit Pedal</button>
+          <button className="pedal-detail-button btn-edit">Edit Pedal</button>
         </Link>
       </div>
       <br />

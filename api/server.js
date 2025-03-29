@@ -1,26 +1,26 @@
-// server.js
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-// Import your routers
+// import the routers
 const pedalsRouter = require('./routes/pedals');
-const categoriesRouter = require('./routes/categories'); // Import the categories router
+const categoriesRouter = require('./routes/categories'); // import the categories router
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware setup
+// middleware setup
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve static files (uploads)
+// serve static files
 app.use('/uploads', express.static('uploads'));
 
-// Set up routes
+// set up routes
 app.use('/api/pedals', pedalsRouter);
-app.use('/api/categories', categoriesRouter); // Mount the categories endpoint
+app.use('/api/categories', categoriesRouter); // mount the categories endpoint
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

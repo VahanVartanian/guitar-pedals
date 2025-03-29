@@ -1,9 +1,15 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Inline:opsz,wght@10..72,100..900&display=swap');
 
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f5f5;
+  background: url(./background.png) no-repeat center center fixed;
+  background-size: cover;
+  background-color: #dbdbdb;
+}
+
+.header, h1, h2, h3 {
+  font-family: 'Big Shoulders Inline', sans-serif;
 }
 
 .app {
@@ -12,7 +18,7 @@ body {
   min-height: 100vh;
 }
 
-/* Header */
+
 .header {
   background-color: #333;
   color: #fff;
@@ -20,7 +26,7 @@ body {
   text-align: center;
 }
 
-/* Navigation Bar */
+
 .navbar {
   background-color: #444;
   padding: 10px 0;
@@ -39,15 +45,15 @@ body {
   text-decoration: underline;
 }
 
-/* Main Container */
+
 .container {
   flex: 1;
   max-width: 1200px;
-  margin: 20px auto;
+  margin: 20px 0 20px 20px; /* top: 20px, right: 0, bottom: 20px, left: 20px */
   padding: 0 20px;
 }
 
-/* Footer */
+
 .footer {
   background-color: #333;
   color: #fff;
@@ -55,7 +61,7 @@ body {
   padding: 15px;
 }
 
-/* Category carousel container styling */
+
 .category-carousel {
   margin-bottom: 40px;
 }
@@ -64,24 +70,24 @@ body {
   margin-left: 10px;
 }
 
-/* Horizontal scroll container for carousel items */
+
 .carousel-container {
-  width: 100vw; /* Span full viewport width */
-  margin-left: calc(50% - 50vw); /* Center it relative to viewport */
+  width: 100vw; 
+  margin-left: calc(50% - 50vw); 
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
   gap: 20px;
   padding: 10px 0;
-  -ms-overflow-style: none;  /* Hide scrollbar for IE/Edge */
-  scrollbar-width: none;  /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
 }
 
 .carousel-container::-webkit-scrollbar {
-  display: none;  /* Hide scrollbar for Chrome, Safari, Opera */
+  display: none;  
 }
 
-/* Carousel controls (navigation buttons) placed under the carousel */
+
 .carousel-controls {
   display: flex;
   justify-content: center;
@@ -104,7 +110,17 @@ body {
   background: rgba(0, 0, 0, 0.7);
 }
 
-/* Card styling */
+.card a {
+  color: #333;
+  text-decoration: none;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .card {
   background-color: #fff;
   border-radius: 8px;
@@ -118,21 +134,22 @@ body {
 .card img {
   width: 100%;
   height: 200px;
-  object-fit: contain;  /* Show the full image without cropping */
+  object-fit: contain;  
   border-radius: 8px;
-  background-color: #ffffff; /* Fallback background for letterboxing */
+  background-color: #ffffff; 
+
 }
 
 .card a {
   color:#333;
   text-decoration: none;;
 }
-/* Optional: Styling for the filter dropdown */
+
 .filter {
   margin: 20px 10px;
 }
 
-/* Form container styling */
+
 .form-container {
   background-color: #fff;
   border-radius: 8px;
@@ -161,7 +178,7 @@ body {
   border-radius: 4px;
 }
 
-/* Styled form button */
+
 .form-container button {
   padding: 12px 25px;
   background-color: #007BFF;
@@ -175,6 +192,46 @@ body {
 
 .form-container button:hover {
   background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+
+.pedal-detail-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+
+.pedal-detail-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  text-transform: uppercase;
+}
+
+
+.btn-edit {
+  background-color: #28a745;  /* green */
+  color: #fff;
+}
+
+.btn-edit:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+
+.btn-delete {
+  background-color: #dc3545;  /* red */
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
   transform: translateY(-2px);
 }
 

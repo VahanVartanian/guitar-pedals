@@ -1,19 +1,16 @@
 // src/components/PedalList.js
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import CategoryCarousel from './CategoryCarousel';
 
 function PedalList() {
-  // State for pedals and filter
   const [pedals, setPedals] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  // Fetch pedals with optional filtering by category
+  // Fetch all pedals from the API
   const fetchPedals = async () => {
     try {
-      // Append query parameter if a category is selected
-      const url = `http://localhost:3001/api/pedals${selectedCategory ? `?category_id=${selectedCategory}` : ''}`;
-      const response = await fetch(url);
+      const response = await fetch('http://localhost:3001/api/pedals');
       const data = await response.json();
       setPedals(data);
     } catch (error) {
@@ -21,33 +18,33 @@ function PedalList() {
     }
   };
 
-  // Fetch categories for the filtering dropdown
+  // Fetch all categories from the API
   const fetchCategories = async () => {
     try {
       const response = await fetch('http://localhost:3001/api/categories');
       const data = await response.json();
+      console.log('Fetched Categories:', data);
       setCategories(data);
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
   };
 
-  // Fetch pedals whenever the selected category changes
-  useEffect(() => {
-    fetchPedals();
-  }, [selectedCategory]);
-
-  // Fetch categories once on mount
   useEffect(() => {
     fetchCategories();
+    fetchPedals();
   }, []);
+
+  // If a category is selected from the dropdown, filter to that category only; otherwise, show all
+  const filteredCategories = selectedCategory
+    ? categories.filter((cat) => String(cat.id) === selectedCategory)
+    : categories;
 
   return (
     <div>
-      <h2>Guitar Pedals</h2>
-
-      {/* Filtering Component */}
-      <div>
+      <h2>Guitar Pedals Collection</h2>
+      {/* Dropdown Filter */}
+      <div className="filter">
         <label htmlFor="categoryFilter">Filter by Category:</label>
         <select
           id="categoryFilter"
@@ -62,29 +59,20 @@ function PedalList() {
           ))}
         </select>
       </div>
-
-      {/* Pedals List */}
-      <ul>
-        {pedals.map((pedal) => (
-          <li key={pedal.id}>
-            {/* Link to the detail page */}
-            <Link to={`/pedals/${pedal.id}`}>
-              <h3>{pedal.name}</h3>
-            </Link>
-            <p>{pedal.description.substring(0, 100)}...</p>
-            {pedal.image && (
-              <img
-                src={`http://localhost:3001/uploads/${pedal.image}`}
-                alt={pedal.name}
-                width="100"
-              />
-            )}
-          </li>
-        ))}
-      </ul>
-
-      {/* Link to Add New Pedal */}
-      <Link to="/add">Add New Pedal</Link>
+      {/* Display a carousel for each filtered category */}
+      {filteredCategories.map((category) => {
+        const filteredPedals = pedals.filter(
+          (pedal) => pedal.category_id === category.id
+        );
+        if (filteredPedals.length === 0) return null;
+        return (
+          <CategoryCarousel
+            key={category.id}
+            category={category}
+            pedals={filteredPedals}
+          />
+        );
+      })}
     </div>
   );
 }
